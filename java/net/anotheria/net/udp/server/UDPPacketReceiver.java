@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.anotheria.util.queue.IQueue;
-import net.anotheria.util.queue.QueueFactory;
+import net.anotheria.util.queue.StandardQueueFactory;
 
 
 /**
@@ -22,7 +22,7 @@ public class UDPPacketReceiver extends Thread{
 	
 	public UDPPacketReceiver(int aPort){
 		port = aPort;
-		inQueue = QueueFactory.createQueue(500);
+		inQueue = new StandardQueueFactory().createQueue(500);
 		workers = new ArrayList<IUDPPacketWorker>();
 	}
 	
