@@ -2,27 +2,42 @@ package net.anotheria.net.udp.server;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import net.anotheria.util.queue.IQueue;
 import net.anotheria.util.queue.StandardQueueFactory;
 
 
 /**
- * TODO please remined another to comment this class
+ * A helper object which is bound to a port and proceeds all incoming datagram packets on this port. The reception of the packets is performed in one thread, the processing of the 
+ * received packets in another thread. Both threads are separated by a queue. 
+ * The UDPPacketReceiver supports multiple workers. For each incomign packet all workers are notified (sequentially).
  * @author another
  */
 public class UDPPacketReceiver extends Thread{
+	/**
+	 * List with worker objects.
+	 */
 	private List<IUDPPacketWorker> workers;
+	/**
+	 * Port for listening.
+	 */
 	private int port;
 	
-	private IQueue inQueue;
+	/**
+	 * Queue for storage of received packets for processing.
+	 */
+	private IQueue<TMPDataHolder> inQueue;
 	
+	private static Logger log = Logger.getLogger(UDPPacketReceiver.class);
 	
 	public UDPPacketReceiver(int aPort){
 		port = aPort;
-		inQueue = new StandardQueueFactory().createQueue(500);
+		inQueue = new StandardQueueFactory<TMPDataHolder>().createQueue(500);
 		workers = new ArrayList<IUDPPacketWorker>();
 	}
 	
@@ -30,18 +45,27 @@ public class UDPPacketReceiver extends Thread{
 		byte data[] = new byte[64000];
 		new QueueWorker(inQueue).start();
 		DatagramPacket rec = new DatagramPacket(data, 64000);
+		
+		DatagramSocket server = null;
 		try{
-			DatagramSocket server = new DatagramSocket(port);
-			while(true){
+			server = new DatagramSocket(port);
+		}catch(SocketException e){
+			log.error("Can't init server socket on port "+port+", stoped packed receiving.", e);
+			return;
+		}
+		
+		while(true){
+			try{
 				server.receive(rec);
 				byte[] newData = new byte[rec.getLength()-rec.getOffset()];
 				System.arraycopy(data, rec.getOffset(), newData, 0, rec.getLength());
 				TMPDataHolder holder = new TMPDataHolder(new UDPSenderInfo(rec.getAddress(), rec.getPort()), newData);
 				inQueue.putElement(holder);
+			}catch(Exception e){
+				log.error("Caught exception in packet processing (continue listening)", e);
 			}
-		}catch(Exception e){
-			e.printStackTrace();
 		}
+			
 	}
 	
 	private void notifyWorkers(UDPSenderInfo info, byte[] data){
@@ -50,17 +74,16 @@ public class UDPPacketReceiver extends Thread{
 			try{
 				worker.proceedIncomingPacket(data, info);
 			}catch(Throwable t){
-				System.out.println("Worker "+worker+" didn't caught throwable: "+t.getMessage());
-				t.printStackTrace();
+				log.error("Worker "+worker+" didn't caught throwable: ", t);
 			}
 		}
 	}
 	
 	class QueueWorker extends Thread{
 		
-		private IQueue queue;
+		private IQueue<TMPDataHolder> queue;
 
-		QueueWorker(IQueue aQueue){
+		QueueWorker(IQueue<TMPDataHolder> aQueue){
 			this.queue = aQueue;
 		}
 		
@@ -68,10 +91,9 @@ public class UDPPacketReceiver extends Thread{
 		public void run(){
 			while(true){
 				if (queue.hasElements()){
-					TMPDataHolder holder = (TMPDataHolder)queue.nextElement();
-					System.out.println("Queue proceeding "+holder);
+					TMPDataHolder holder = queue.nextElement();
 					if (holder==null)
-						System.out.println("Strange holder == 0");
+						log.warn("Strange, data packet was null");
 					else
 						notifyWorkers(holder.info, holder.data);
 				}else{
