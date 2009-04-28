@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ano-util"/>
-	<classpathentry kind="lib" path="/ano-libs/lib/ano-util.jar" sourcepath="/ano-util/java"/>
+	<classpathentry kind="lib" path="lib/ano-util.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
