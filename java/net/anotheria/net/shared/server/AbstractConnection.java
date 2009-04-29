@@ -32,12 +32,12 @@ public abstract class AbstractConnection implements IConnection{
 	}
 
 	public void close() {
-		for (int i=0; i<listeners.size();i++)
+		for (int i=0; i<listeners.size(); i++)
 			listeners.get(i).connectionClosed(this);
 	}
 
 	public void open() {
-		for (int i=0; i<listeners.size();i++)
+		for (int i=0; i<listeners.size(); i++)
 			listeners.get(i).connectionOpened(this);
 	}
 
