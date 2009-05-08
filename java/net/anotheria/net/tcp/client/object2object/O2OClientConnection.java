@@ -29,7 +29,11 @@ import java.net.UnknownHostException;
 
 import net.anotheria.net.shared.server.AbstractConnection;
 
-
+/**
+ * A connection which is capable of sending objects.
+ * @author lrosenberg
+ *
+ */
 public class O2OClientConnection extends AbstractConnection{
 	
 	private Socket socket;
@@ -101,13 +105,3 @@ public class O2OClientConnection extends AbstractConnection{
 		return ret;
 	}
 }
-
-/* ------------------------------------------------------------------------- *
- * $Log$
- * Revision 1.2  2008/01/06 19:11:10  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/01/25 13:02:28  lrosenberg
- * *** empty log message ***
- *
- */

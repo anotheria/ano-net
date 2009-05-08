@@ -27,19 +27,37 @@ import net.anotheria.net.shared.server.IConnection;
 import net.anotheria.net.shared.server.IConnectionFactory;
 import net.anotheria.net.shared.server.ServerException;
 
+/**
+ * A basic server for tcp connections.
+ * @author lrosenberg
+ *
+ */
 public class BasicTCPServer extends AbstractServer implements Runnable{
-	
+	/**
+	 * The port to listen on.
+	 */
 	private int port;
+	/**
+	 * The listening socket.
+	 */
 	private ServerSocket serverSocket;
+	/**
+	 * True as long as we are running.
+	 */
 	private volatile boolean running;
 	
+	/**
+	 * Creates a new server with the given port and connection factory.
+	 * @param aPort the port to listen to.
+	 * @param conFactory
+	 */
 	public BasicTCPServer(int aPort, IConnectionFactory conFactory){
 		super(conFactory);
 		port = aPort;
 	}
 	
 
-	public void startServer() throws ServerException{
+	@Override public void startServer() throws ServerException{
 		try{
 			serverSocket = new ServerSocket(port);
 		}catch(IOException e){
@@ -48,7 +66,7 @@ public class BasicTCPServer extends AbstractServer implements Runnable{
 		new Thread(this).start();
 	}
 	
-	public void run(){
+	@Override public void run(){
 		setRunning(true);
 		while(isRunning()){
 			try{
@@ -62,34 +80,27 @@ public class BasicTCPServer extends AbstractServer implements Runnable{
 		}
 	}
 
-	public void stopServer() {
+	/**
+	 * Stops the server.
+	 */
+	@Override public void stopServer() {
 		setRunning(false);
 		
 	}
 
-
+	/**
+	 * Returns true if the server is running
+	 * @return
+	 */
 	public boolean isRunning() {
 		return running;
 	}
 
-
-	public void setRunning(boolean running) {
-		this.running = running;
+	/**
+	 * Used to stop the server by stoping the thread.
+	 * @param running false if the server has to be stoped.
+	 */
+	public void setRunning(boolean aRunning) {
+		this.running = aRunning;
 	}
 }
-
-/* ------------------------------------------------------------------------- *
- * $Log$
- * Revision 1.2  2008/01/06 19:07:50  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/01/25 13:02:28  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.2  2006/01/05 16:53:16  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/01/04 16:17:27  lrosenberg
- * *** empty log message ***
- *
- */
