@@ -41,7 +41,7 @@ public class UDPPacketReceiver extends Thread{
 		workers = new ArrayList<IUDPPacketWorker>();
 	}
 	
-	public void run(){
+	@Override public void run(){
 		byte data[] = new byte[64000];
 		new QueueWorker(inQueue).start();
 		DatagramPacket rec = new DatagramPacket(data, 64000);
@@ -123,7 +123,7 @@ class TMPDataHolder{
 		this.data = aData;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return ""+info+" "+data.length;
 	}
 	

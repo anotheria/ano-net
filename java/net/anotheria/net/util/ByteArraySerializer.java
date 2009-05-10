@@ -14,6 +14,12 @@ import java.io.Serializable;
  */
 public class ByteArraySerializer {
 	
+	/**
+	 * Serializes a serializeable object into a byte array.
+	 * @param obj the object to serialize
+	 * @return
+	 * @throws IOException
+	 */
 	public static byte[] serializeObject(Serializable obj) throws IOException{
 		ByteArrayOutputStream bOut = null;
 		ObjectOutputStream oOut = null;
@@ -32,6 +38,10 @@ public class ByteArraySerializer {
 		}
 	}
 	
+	/**
+	 * Desirializes a previously serialized from a byte array. The object has to be of serializeable class.
+	 * @param array the byte array with the contents of the object.
+	 */
 	public static Object deserializeObject(byte[] array) throws IOException{
 		ByteArrayInputStream bIn = null;
 		ObjectInputStream oIn = null;
