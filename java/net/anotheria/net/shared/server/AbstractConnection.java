@@ -9,12 +9,12 @@ import java.util.List;
  */
 public abstract class AbstractConnection implements IConnection{
 	/**
-	 * The list with listeners
+	 * The list with listeners.
 	 */
 	private List<IConnectionListener> listeners;
 	
 	/**
-	 * Creates a new abstract connection with an empty listeners list
+	 * Creates a new abstract connection with an empty listeners list.
 	 */
 	protected AbstractConnection(){
 		listeners = new ArrayList<IConnectionListener>();
@@ -36,6 +36,5 @@ public abstract class AbstractConnection implements IConnection{
 
 	@Override public void removeConnectionListener(IConnectionListener listener) {
 		listeners.remove(listener);
-		
 	}
 }

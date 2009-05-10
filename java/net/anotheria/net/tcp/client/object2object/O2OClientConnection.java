@@ -30,7 +30,7 @@ import java.net.UnknownHostException;
 import net.anotheria.net.shared.server.AbstractConnection;
 
 /**
- * A connection which is capable of sending objects.
+ * A connection which is capable of sending objects. Client side.
  * @author lrosenberg
  *
  */
@@ -59,7 +59,7 @@ public class O2OClientConnection extends AbstractConnection{
 		
 	}
 	
-	public void open() {
+	@Override public void open() {
 		try{
 			connect();
 		}catch(Exception e){
@@ -68,7 +68,7 @@ public class O2OClientConnection extends AbstractConnection{
 		super.open();
 	}
 	
-	public void close(){
+	@Override public void close(){
 		try{
 			socket.close();
 		}catch(Exception e){
