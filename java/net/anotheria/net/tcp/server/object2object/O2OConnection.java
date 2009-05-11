@@ -1,20 +1,3 @@
-/* ------------------------------------------------------------------------- *
-$Source$
-$Author$
-$Date$
-$Revision$
-
-
-Copyright 2004-2005 by FriendScout24 GmbH, Munich, Germany.
-All rights reserved.
-
-This software is the confidential and proprietary information
-of FriendScout24 GmbH. ("Confidential Information").  You
-shall not disclose such Confidential Information and shall use
-it only in accordance with the terms of the license agreement
-you entered into with FriendScout24 GmbH.
-See www.friendscout24.de for details.
-** ------------------------------------------------------------------------- */
 package net.anotheria.net.tcp.server.object2object;
 
 import java.io.EOFException;
@@ -27,22 +10,43 @@ import java.net.Socket;
 
 import net.anotheria.net.tcp.server.AbstractTCPConnection;
 
+/**
+ * A connection to exchange objects via an underlying tcp connection. 
+ * @author lrosenberg
+ */
 public class O2OConnection extends AbstractTCPConnection{
 	
+	/**
+	 * True if the connection is to be kept over multiple requests.
+	 */
 	private boolean keepAlive;
+	/**
+	 * The worker to proceed incoming requests.
+	 */
 	private IO2OWorker worker;
 	
+	/**
+	 * Creates a new object to object connection.
+	 * @param s the socket to bind the connection too.
+	 * @param aWorker the worker for proceeding incoming requests.
+	 * @param aKeepAlive whether the connection should be keep alived after request has been sent. 
+	 */
 	O2OConnection(Socket s, IO2OWorker aWorker, boolean aKeepAlive){
 		super(s);
 		worker = aWorker;
 		keepAlive = aKeepAlive;
 	}
 	
+	/**
+	 * Creates a new keep alived object to object connection.
+	 * @param s the socket to bind the connection too.
+	 * @param aWorker the worker for proceeding incoming requests.
+	 */
 	O2OConnection(Socket s, IO2OWorker aWorker){
 		this(s, aWorker, true);
 	}
 	
-	public void run(){
+	@Override public void run(){
 		//in case we were 2 fast
 		while(worker==null)
 			try{
@@ -83,40 +87,48 @@ public class O2OConnection extends AbstractTCPConnection{
 		close();
 	}
 	
+	/**
+	 * Receives an object over the line.
+	 * @param in the input stream to read from.
+	 * @param oIn the objectinputstream ontop of the input stream.
+	 * @return a read object.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException
+	 */
 	private Object receiveObject(InputStream in, ObjectInputStream oIn) throws IOException, ClassNotFoundException{
 		in.read();
 		Object o = oIn.readObject();
 		return o;
 	}
 	
+	/**
+	 * Sends an object over the line.
+	 * @param toSend the object to send.
+	 * @param out the output stream.
+	 * @param oOut the object output stream ontop of the output stream.
+	 * @throws Exception thrown if something got wrong.
+	 */
 	private void sendObject(Object toSend, OutputStream out, ObjectOutputStream oOut) throws Exception{
 		out.write(10);
 		oOut.writeObject(toSend);
 		oOut.flush();
 	}
 	
-	
-
+	/**
+	 * Returns the value of the keepalive attribute.
+	 * @return true if the connection should be keepalived between requests.
+	 */
 	public boolean isKeepAlive() {
 		return keepAlive;
 	}
 
-	public void setKeepAlive(boolean keepAlive) {
-		this.keepAlive = keepAlive;
+	/**
+	 * Sets the value of the keepalive attribute.
+	 * @param keepAlive the new value to set.
+	 */
+	public void setKeepAlive(boolean aKeepAlive) {
+		keepAlive = aKeepAlive;
 	}
 	
 	
 }
-
-/* ------------------------------------------------------------------------- *
- * $Log$
- * Revision 1.2  2008/01/06 19:08:09  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/01/25 13:02:28  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/01/24 15:58:43  lrosenberg
- * *** empty log message ***
- *
- */
