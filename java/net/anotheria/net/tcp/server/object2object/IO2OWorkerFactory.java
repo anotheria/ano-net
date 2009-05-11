@@ -8,5 +8,5 @@ public interface IO2OWorkerFactory {
 	 * Creates a new worker.
 	 * @return the newly created worker.
 	 */
-	public IO2OWorker createWorker();
+	IO2OWorker createWorker();
 }
