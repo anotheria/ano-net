@@ -10,6 +10,6 @@ public interface IO2OWorker {
 	 * @param in the incoming parameter object.
 	 * @return a returnvalue object
 	 */
-	public Object processObjectAndReturnResult(Object in);
+	Object processObjectAndReturnResult(Object in);
 }
 
