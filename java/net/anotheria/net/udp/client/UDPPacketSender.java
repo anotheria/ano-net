@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 public class UDPPacketSender {
 	
 	/**
-	 * The logger
+	 * The logger.
 	 */
 	private static Logger log = Logger.getLogger(UDPPacketSender.class);
 	

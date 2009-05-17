@@ -13,7 +13,9 @@ import net.anotheria.net.util.ByteArraySerializer;
  * @author lrosenberg
  */
 public class UDPObjectSender {
-	
+	/**
+	 * The logger.
+	 */
 	private static Logger log = Logger.getLogger(UDPObjectSender.class);
 	
 	/**
