@@ -10,36 +10,82 @@ import java.net.UnknownHostException;
 import org.apache.log4j.Logger;
 
 /**
- * TODO please remined another to comment this class
+ * Utility class which sends packets over udp.
  * @author another
  */
 public class UDPPacketSender {
 	
+	/**
+	 * The logger
+	 */
 	private static Logger log = Logger.getLogger(UDPPacketSender.class);
 	
+	/**
+	 * Default target host. If no host is given as parameter this one will be used.
+	 */
 	private String defaultHost;
+	/**
+	 * Currently assinged host. Actually last used host.
+	 */
 	private String currentHost;
+	/**
+	 * The default port. If no port is given this one will be used.
+	 */
 	private int defaultPort;
+	/**
+	 * Currently assgined port. The last used port.
+	 */
 	private int currentPort;
 	
+	/**
+	 * The socket to use as send socket.
+	 */
 	private DatagramSocket socket;
-	//private int sourcePort;
 	
-	private int minPort, maxPort;
+	/**
+	 * The min port in the outgoing port range.
+	 */
+	private int minPort;
+	/**
+	 * The max port in the outgoing port range.
+	 */
+	private int maxPort;
 	
+	/**
+	 * Creates a new UDPPacketSender with the given port as sender port. 
+	 * @param aSourcePort the port to use as outgoing port.
+	 */
 	public UDPPacketSender(int aSourcePort){
 		this(aSourcePort, aSourcePort);
 	}
 	
+	/**
+	 * Creates a new UDPPacketSender with a given port range for the outgoing port.
+	 * @param aMinPort the min port in the outgoing port range
+	 * @param aMaxPort the max port in the outgoing port range
+	 */
 	public UDPPacketSender(int aMinPort, int aMaxPort){
 		minPort = aMinPort;
 		maxPort = aMaxPort;
 	}
 	
+	/**
+	 * Creates a new UDPPacketSender with a given outgoing port, default target host and port.
+	 * @param aSourcePort the port to use as outgoing port.
+	 * @param aDefaultHost the default target host.
+	 * @param aDefaultPort the default target port.
+	 */
 	public UDPPacketSender(int aSourcePort, String aDefaultHost, int aDefaultPort){
 		this(aSourcePort, aSourcePort, aDefaultHost, aDefaultPort);
 	}
-	
+
+	/**
+	 * Creates a new UDPPacketSender with outgoing port range, a default target host and port. 
+	 * @param aMinPort the min port in the outgoing port range
+	 * @param aMaxPort the max port in the outgoing port range
+	 * @param aDefaultHost the default target host.
+	 * @param aDefaultPort the default target port.
+	 */
 	public UDPPacketSender(int aMinPort, int aMaxPort, String aDefaultHost, int aDefaultPort){
 		minPort = aMinPort;
 		maxPort = aMaxPort;
@@ -54,11 +100,20 @@ public class UDPPacketSender {
 		}
 	}
 	
-	
+	/**
+	 * Sends some data to the default host and port.
+	 * @param data the data to send.
+	 */
 	public void send(byte[] data){
 		sendTo(data, defaultHost, defaultPort);
 	}
 	
+	/**
+	 * Sends some data to the given host and port.
+	 * @param data the data to send.
+	 * @param host the host to send the data to.
+	 * @param port the port to send the data to.
+	 */
 	public void sendTo(byte[] data, String host, int port){
 		//System.out.println("Sending "+data.length+" to "+host+" : "+port);
 		try{
@@ -71,6 +126,13 @@ public class UDPPacketSender {
 		}
 	}
 	
+	/**
+	 * Initializes a connection to a host,port combination. 
+	 * @param host the target host.
+	 * @param port the target port.
+	 * @throws UnknownHostException if the host can't be resolved.
+	 * @throws SocketException if a socket has been closed or any other socket errors happen.
+	 */
 	private synchronized void initConnection(String host, int port) throws UnknownHostException, SocketException{
 		if (currentHost!=null && currentHost.equals(host) && currentPort==port)
 			return;
