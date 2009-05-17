@@ -1,8 +1,5 @@
 package net.anotheria.net.tcp.proxy;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,11 +7,14 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.anotheria.net.shared.server.AbstractConnection;
 import net.anotheria.net.shared.server.IConnection;
-import net.anotheria.net.shared.server.IConnectionListener;
 import net.anotheria.net.tcp.server.AbstractTCPConnection;
 
+/**
+ * A proxy connection which proxies a connection to a tcp server.
+ * This class is yet considered experimental. 
+ * @author lrosenberg
+ */
 public class ProxyConnection extends AbstractTCPConnection implements IConnection{
 
 
