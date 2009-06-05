@@ -18,7 +18,7 @@ public class UDPObjectSender {
 	 */
 	private static Logger log = Logger.getLogger(UDPObjectSender.class);
 	
-	/**
+	/**   
 	 * The underlying udp packet sender.
 	 */
 	private UDPPacketSender sender;
@@ -70,6 +70,11 @@ public class UDPObjectSender {
 		if (log.isDebugEnabled())
 			log.debug("Sending object "+o+", to: "+host+":"+port);
 		sender.sendTo(ByteArraySerializer.serializeObject((Serializable)o), host, port);
+	}
+	
+	//added a dummy line to testing of subversion connection to jira: ANONET-1.
+	public void dummy(){
+		
 	}
 
 }
