@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author lrosenberg
  * Created on 09.09.2004
  */
-public class ByteArraySerializer {
+public final class ByteArraySerializer {
 	
 	/**
 	 * Serializes a serializeable object into a byte array.
@@ -58,5 +58,9 @@ public class ByteArraySerializer {
 				}catch(Exception ignored){}
 			}
 		}
+	}
+	
+	private ByteArraySerializer(){
+		//prevent initialization
 	}
 }
