@@ -27,14 +27,12 @@ public final class ByteArraySerializer {
 			bOut = new ByteArrayOutputStream();
 			oOut = new ObjectOutputStream(bOut);
 			oOut.writeObject(obj);
-			oOut.close();
 			return bOut.toByteArray();
-		}catch(IOException e){
+		}finally{
 			if (oOut!=null)
 				try{
 					oOut.close();
-				}catch(Exception ignored){}
-			throw e;
+				}catch(Exception ignored){/*here is nothing that we can do*/}
 		}
 	}
 	
