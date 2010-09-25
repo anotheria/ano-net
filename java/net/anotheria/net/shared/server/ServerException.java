@@ -6,6 +6,11 @@ package net.anotheria.net.shared.server;
  *
  */
 public class ServerException extends Exception{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ServerException(String aMessage){
 		super(aMessage);
 	}
