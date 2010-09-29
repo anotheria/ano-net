@@ -30,3 +30,4 @@ public class NetUtils {
     	return dotIndex == -1 ? fullName : fullName.substring(0, dotIndex);
     }
 }
+ 

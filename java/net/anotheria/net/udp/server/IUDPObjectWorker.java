@@ -7,3 +7,4 @@ package net.anotheria.net.udp.server;
 public interface IUDPObjectWorker {
 	public void proceedIncomingObject(Object o, UDPSenderInfo senderInfo);
 }
+ 

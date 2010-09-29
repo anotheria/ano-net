@@ -28,7 +28,7 @@ public final class ByteArraySerializer {
 			oOut = new ObjectOutputStream(bOut);
 			oOut.writeObject(obj);
 			return bOut.toByteArray();
-		}finally{
+		}finally{ 
 			if (oOut!=null)
 				try{
 					oOut.close();

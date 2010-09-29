@@ -30,7 +30,7 @@ public class UDPPacketSender {
 	private String currentHost;
 	/**
 	 * The default port. If no port is given this one will be used.
-	 */
+	 */ 
 	private int defaultPort;
 	/**
 	 * Currently assgined port. The last used port.
