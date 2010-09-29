@@ -9,3 +9,4 @@ public class NetUtilsTest {
 		assertNotNull(NetUtils.getShortComputerName());
 	}
 }
+ 
