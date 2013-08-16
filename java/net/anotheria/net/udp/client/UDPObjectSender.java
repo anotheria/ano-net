@@ -1,11 +1,11 @@
 package net.anotheria.net.udp.client;
 
+import net.anotheria.net.util.ByteArraySerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.Serializable;
-
-import org.apache.log4j.Logger;
-
-import net.anotheria.net.util.ByteArraySerializer;
 
 
 /**
@@ -16,7 +16,7 @@ public class UDPObjectSender {
 	/**
 	 * The logger.
 	 */
-	private static Logger log = Logger.getLogger(UDPObjectSender.class);
+	private static Logger log = LoggerFactory.getLogger(UDPObjectSender.class);
 	
 	/**   
 	 * The underlying udp packet sender.

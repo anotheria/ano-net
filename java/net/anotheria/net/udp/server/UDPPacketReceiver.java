@@ -1,15 +1,15 @@
 package net.anotheria.net.udp.server;
 
+import net.anotheria.util.queue.IQueue;
+import net.anotheria.util.queue.StandardQueueFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import net.anotheria.util.queue.IQueue;
-import net.anotheria.util.queue.StandardQueueFactory;
 
 
 /**
@@ -33,7 +33,7 @@ public class UDPPacketReceiver extends Thread{
 	 */
 	private IQueue<TMPDataHolder> inQueue;
 	
-	private static Logger log = Logger.getLogger(UDPPacketReceiver.class);
+	private static Logger log = LoggerFactory.getLogger(UDPPacketReceiver.class);
 	
 	public UDPPacketReceiver(int aPort){
 		port = aPort;

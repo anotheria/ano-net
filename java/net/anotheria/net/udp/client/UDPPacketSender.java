@@ -1,13 +1,14 @@
 package net.anotheria.net.udp.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.BindException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-
-import org.apache.log4j.Logger;
 
 /**
  * Utility class which sends packets over udp.
@@ -18,8 +19,8 @@ public class UDPPacketSender {
 	/**
 	 * The logger.
 	 */
-	private static Logger log = Logger.getLogger(UDPPacketSender.class);
-	
+	private static Logger log = LoggerFactory.getLogger(UDPPacketSender.class);
+
 	/**
 	 * Default target host. If no host is given as parameter this one will be used.
 	 */

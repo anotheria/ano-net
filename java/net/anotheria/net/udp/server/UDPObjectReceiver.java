@@ -1,12 +1,12 @@
 package net.anotheria.net.udp.server;
 
+import net.anotheria.net.util.ByteArraySerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import net.anotheria.net.util.ByteArraySerializer;
 
 
 /**
@@ -14,8 +14,8 @@ import net.anotheria.net.util.ByteArraySerializer;
  * @author lrosenberg
  */
 public class UDPObjectReceiver implements IUDPPacketWorker{
-	
-	private static Logger log = Logger.getLogger(UDPObjectReceiver.class);
+
+	private static Logger log = LoggerFactory.getLogger(UDPObjectReceiver.class);
 
 	/**
 	 * The underlying packet receiver.

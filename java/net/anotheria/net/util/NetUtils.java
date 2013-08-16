@@ -1,8 +1,9 @@
 package net.anotheria.net.util;
 
-import java.net.InetAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import java.net.InetAddress;
 
 /**
  * Utilities for the network layer.
@@ -10,7 +11,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class NetUtils {
-    private static Logger log = Logger.getLogger(NetUtils.class);
+    private static Logger log = LoggerFactory.getLogger(NetUtils.class);
 
     public static final String getComputerName(){
         try{
@@ -29,5 +30,9 @@ public class NetUtils {
     	int dotIndex = fullName.indexOf('.');
     	return dotIndex == -1 ? fullName : fullName.substring(0, dotIndex);
     }
+    
+    public static void main(String[] args) {
+		System.out.println(getShortComputerName());
+	}
 }
  
