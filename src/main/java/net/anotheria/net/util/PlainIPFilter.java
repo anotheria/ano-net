@@ -35,10 +35,8 @@ public class PlainIPFilter {
 	/**
 	 * Returns true if the parameter ip-adress is in one of the ranges.
 	 * 
-	 * @param ipAdress
-	 *            the adress to check.
-	 * @param ranges 
-	 * 			to pass through
+	 * @param ipAddress the address to check.
+	 * @param ranges to pass through
 	 * 
 	 * @return
 	 */
@@ -53,8 +51,7 @@ public class PlainIPFilter {
 	 * Returns true if the parameter ip-adress is in one of the configured
 	 * ranges.
 	 * 
-	 * @param ipAdress
-	 *            the adress to check.
+	 * @param ipAddress the address to check.
 	 * @return
 	 */
 	public boolean mayPass(String ipAddress) {

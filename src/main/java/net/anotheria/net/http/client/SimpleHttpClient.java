@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import net.anotheria.util.IOUtils;
 
@@ -23,8 +24,8 @@ public class SimpleHttpClient {
 	 * by specific URL. Can be helpful when already prepared JSON, YAML or any other text format request
 	 * has to be sent on a Server via HTTP Post.
 	 * 
-	 * @param url
-	 * @param postData
+	 * @param url url to send request to.
+	 * @param postData data to post.
 	 * @return text response from the Server
 	 * @throws Exception
 	 *             delegates to using class exceptions handling.
@@ -41,10 +42,10 @@ public class SimpleHttpClient {
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("User-Agent", agent);
 		conn.setRequestProperty("Content-Type", type);
-		conn.setRequestProperty("Content-Length", postData.length() + "");
+		conn.setRequestProperty("Content-Length", String.valueOf(postData.length()));
 
 		OutputStream out = conn.getOutputStream();
-		out.write(postData.getBytes("utf-8"));
+		out.write(postData.getBytes(StandardCharsets.UTF_8));
 		IOUtils.closeIgnoringException(out);
 		System.out.println("response code:" + conn.getResponseCode());
 

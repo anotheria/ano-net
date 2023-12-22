@@ -81,7 +81,7 @@ public class BasicTCPServer extends AbstractServer implements Runnable{
 
 	/**
 	 * Used to stop the server by stoping the thread.
-	 * @param running false if the server has to be stoped.
+	 * @param aRunning false if the server has to be stopped.
 	 */
 	public void setRunning(boolean aRunning) {
 		this.running = aRunning;

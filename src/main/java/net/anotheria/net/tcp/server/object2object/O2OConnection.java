@@ -124,7 +124,7 @@ public class O2OConnection extends AbstractTCPConnection{
 
 	/**
 	 * Sets the value of the keepalive attribute.
-	 * @param keepAlive the new value to set.
+	 * @param aKeepAlive the new value to set.
 	 */
 	public void setKeepAlive(boolean aKeepAlive) {
 		keepAlive = aKeepAlive;
